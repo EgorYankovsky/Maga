@@ -1,45 +1,24 @@
 import matplotlib.pyplot as plt
 import os
 
-relative_triangle_path = "Data\\points.txt"
+relative_triangle_path = "Data\\lines.txt"
 
-class point:
-    def __init__(self, x, y):
+class Point:
+    def __init__(self, x : float, y : float):
         self.x = x 
         self.y = y 
 
-class rectangle:
-    def __init__(self, p0, p1, p2, p3):
-        self.point0 = p0
-        self.point1 = p1
-        self.point2 = p2
-        self.point3 = p3
-
-    def __init__(self, x0, y0, x1, y1, 
-                       x2, y2, x3, y3):
-        self.point0 = point(x0, y0)
-        self.point1 = point(x1, y1)
-        self.point2 = point(x2, y2)
-        self.point3 = point(x3, y3)
-
-class triangle:
-    def __init__(self, p0, p1, p2):
-        self.point0 = p0  
-        self.point1 = p1  
-        self.point2 = p2
-
-    def __init__(self, x0, y0, x1, y1, x2, y2):
-        self.point0 = point(x0, y0)  
-        self.point1 = point(x1, y1)  
-        self.point2 = point(x2, y2)
-
+class Line:
+    def __init__(self, x0 : float, y0 : float, x1 : float, y1 : float):
+        self.p1 = Point(x0, y0)
+        self.p2 = Point(x1, y1)
 
 def draw(big_big_list):
     if len(big_big_list) == 0:
-        raise Exception("Error: empty triangles array.")
-    for triangle in big_big_list:
-
-        plt.plot()
+        raise Exception("Error: empty lines array.")
+    for line in big_big_list:
+        plt.plot([line.p1.x, line.p2.x],
+                 [line.p1.y, line.p2.y], color="black")
     plt.show() 
 
 def read_file(relative_path_input) -> list:
@@ -47,18 +26,17 @@ def read_file(relative_path_input) -> list:
         raise Exception("Error: no such directory.")
     file = open(relative_path_input , "r")
     file_info = file.read().split('\n')
-    figures_amount = int(file_info[0])
-    list_of_figures = []
-    for i in range(figures_amount):
+    lines_amount = int(file_info[0])
+    list_of_lines = []
+    for i in range(lines_amount):
         info_line = file_info[i + 1].split(" ")
-        if len(info_line) == 3:
-            list_of_figures.append(triangle())
-        
-    print("fe")
+        list_of_lines.append(Line(float(info_line[0]), float(info_line[1]), 
+                                  float(info_line[2]), float(info_line[3])))
+    return list_of_lines
     
-    
-    
+def main():
+    list_of_lines = read_file(relative_triangle_path)
+    draw(list_of_lines)
 
-
-list_of_triangles = read_file(relative_triangle_path)
-draw(list_of_triangles)
+if __name__ == "__main__":
+    main()
