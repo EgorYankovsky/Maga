@@ -28,7 +28,7 @@ std::vector<std::pair<int, int>> border_lines = {};
 std::vector<std::vector<int>> areas = {};
 
 
-std::string file_name = "test.py";
+std::string file_name = "drawer.py";
 std::string command = "python ";
 
 std::vector<double> coord_lines_x = {};

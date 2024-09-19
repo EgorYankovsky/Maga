@@ -19,7 +19,7 @@ def draw(big_big_list):
     for line in big_big_list:
         plt.plot([line.p1.x, line.p2.x],
                  [line.p1.y, line.p2.y], color="black")
-    plt.show() 
+    plt.savefig("Data\\grid.png")
 
 def read_file(relative_path_input) -> list:
     if not os.path.isfile(relative_path_input):
